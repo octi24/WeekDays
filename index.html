@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Выходные</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="calendar">
+        <div class="calendar-head">
+          <div class="month-title">
+            <p class="month">Месяц</p>
+            <p class="year">Год</p>
+          </div>
+          <div class="arrows-btn">
+            <button class="arrow-btn-1 arrow-btn"></button>
+            <button class="arrow-btn-2 arrow-btn"></button>
+          </div>
+        </div>
+        <div class="calendar-line"></div>
+        <div class="calendar-main">
+          <div class="day-week">
+            <p class="week-item">Пн</p>
+            <p class="week-item">Вт</p>
+            <p class="week-item">Ср</p>
+            <p class="week-item">Чт</p>
+            <p class="week-item">Пт</p>
+            <p class="week-item">Сб</p>
+            <p class="week-item">Вс</p>
+          </div>
+          <div class="days">
+            <p class="day-item">1</p>
+            <p class="day-item">2</p>
+            <p class="day-item">3</p>
+            <p class="day-item">4</p>
+            <p class="day-item">5</p>
+            <p class="day-item">6</p>
+            <p class="day-item">7</p>
+            <p class="day-item">8</p>
+            <p class="day-item">9</p>
+            <p class="day-item">10</p>
+            <p class="day-item">11</p>
+            <p class="day-item">12</p>
+            <p class="day-item">13</p>
+            <p class="day-item">14</p>
+            <p class="day-item">15</p>
+            <p class="day-item">16</p>
+            <p class="day-item">17</p>
+            <p class="day-item">18</p>
+            <p class="day-item">19</p>
+            <p class="day-item">20</p>
+            <p class="day-item">21</p>
+            <p class="day-item">22</p>
+            <p class="day-item">23</p>
+            <p class="day-item">24</p>
+            <p class="day-item">25</p>
+            <p class="day-item">26</p>
+            <p class="day-item">27</p>
+            <p class="day-item">28</p>
+            <p class="day-item">29</p>
+            <p class="day-item">30</p>
+            <p class="day-item">31</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="inputs">
+        <div class="input-1-wrapper input-wrapper">
+          <label for="input-1" class="input-1-label input-label"
+            >Выходные Булки:</label
+          >
+          <input
+            type="text"
+            name="input-1"
+            class="input-1 input-field"
+            placeholder="Числа через запятую"
+          />
+          <p class="weekends weekend-1"></p>
+        </div>
+
+        <div class="input-2-wrapper input-wrapper">
+          <label for="input-2" class="input-2-label input-label"
+            >Выходные СимБулки:</label
+          >
+          <input
+            type="text"
+            name="input-2"
+            class="input-2 input-field"
+            placeholder="Числа через запятую"
+          />
+          <p class="weekends weekend-2"></p>
+        </div>
+
+        <div class="toggle-wrapper">
+          <p>Булка</p>
+          <label class="switch">
+            <input type="checkbox" class="slider-1" />
+            <span class="slider"></span>
+          </label>
+
+          <p>СимБулка</p>
+          <label class="switch">
+            <input type="checkbox" class="slider-2" />
+            <span class="slider"></span>
+          </label>
+
+          <p>Общие</p>
+          <label class="switch">
+            <input type="checkbox" class="slider-3" />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <button class="input-btn" onclick="matchWeekends()">Подтвердить</button>
+        <p class="common-dates"></p>
+      </div>
+    </div>
+    <!-- <script src="script.js"></script> -->
+    <script src="script.js"></script>
+  </body>
+</html>
