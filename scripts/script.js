@@ -1,6 +1,3 @@
-//Сделать адаптив и отправить на гитхаб
-// !!!!!!!!!!!!!!!!!!!
-
 // Добавлено: Массив с названиями месяцев на русском для отображения
 const months = [
   'Январь',
@@ -110,7 +107,101 @@ renderCalendar();
 
 //
 //
+// В этой функции каждый элемент массива преобразуется из строки в число
+const stringToNum = (array) => {
+  // for (let i = 0; i < array.length; i++) {
+  //   array[i] = Number(array[i]);
+  // }
+  array.forEach((element, index) => (array[index] = Number(element)));
+};
+
 //
+//
+// Эта функция проверяет, каждый элемент массива на NaN, если он NaN, то в кнопке показывает в каком поле ввода ошибка
+const nanCheck = (array, inputArea, inputVal) => {
+  // До
+  // for (let i = 0; i < array.length; i++) {
+  //   if (isNaN(array[i])) {
+  //     console.log(`Элемент: ${array[i]} массива: ${arrayName} --- NaN`);
+  //     // submitBtn.style.color = '#00ffffff';
+  //     inputVal.style.color = '#00ffffff';
+  //     // return (submitBtn.innerText = `Ошибка ${arrayName}, укажите именно числа!`);
+  //     return (inputVal.value = `Ошибка, укажите именно числа!`);
+  //   } else {
+  //     console.log(`Элемент: ${array[i]} массива: ${arrayName} - не NaN `);
+  //   }
+  // }
+  // После
+  const hasNaN = array.some((element) => {
+    if (isNaN(element)) {
+      console.log(`Элемент: ${element} ${inputArea} - NaN`);
+      return true; // нашли NaN - прерываем поиск
+    } else {
+      console.log(`Элемент: ${element} ${inputArea} - не NaN`);
+      return false;
+    }
+  });
+
+  if (hasNaN) {
+    inputVal.style.color = '#00ffffff';
+    inputVal.value = 'Ошибка, укажите именно числа!';
+  }
+};
+
+//
+//
+// Функция Добавляет элементы массива на календарь
+const addDateColorV2 = (arr, addClass) => {
+  // const day = document.querySelectorAll('.day-item:not(.empty)');
+  // for (let i = 0; i < arr.length; i++) {
+  //   for (let j = 0; j < day.length; j++) {
+  //     if (arr[i] == Number(day[j].textContent)) {
+  //       day[j].classList.add(addClass); //num-1
+  //     }
+  //   }
+  // }
+  document.querySelectorAll('.day-item:not(.empty)').forEach((day) => {
+    if (arr.includes(Number(day.textContent))) {
+      // includes() проверяет наличие числа в массиве
+      day.classList.add(addClass);
+    }
+  });
+};
+
+//
+//
+//Функция, которая Убирает элементы массива с календаря
+const delDateColor = (arr, removeClass) => {
+  // const day = document.querySelectorAll('.day-item:not(.empty)'); // Получает не пустой элемент календаря
+  // for (let i = 0; i < arr.length; i++) {
+  //   for (let j = 0; j < day.length; j++) {
+  //     if (arr[i] == Number(day[j].textContent)) {
+  //       day[j].classList.remove(removeClass); //num-1
+  //     }
+  //   }
+  // }
+  document.querySelectorAll('.day-item:not(.empty)').forEach((day) => {
+    if (arr.includes(Number(day.textContent))) {
+      // includes() проверяет наличие числа в массиве
+      day.classList.remove(removeClass);
+    }
+  });
+};
+
+//
+//
+// Функция, которая показывает совпадения выходных
+// const matchDate = (arr1, arr2) => {
+//   const matches = [];
+//   for (let i = 0; i < arr1.length; i++) {
+//     for (let j = 0; j < arr2.length; j++) {
+//       if (arr1[i] === arr2[j]) {
+//         matches.push(arr1[i]);
+//       }
+//     }
+//   }
+//   return matches;
+// };
 
 //В инпут вводятся цифры, через запятую, в массив приходят цифры в виде строки, которые разделяются на эелемнты массива через запятую.
 function matchWeekends() {
@@ -123,10 +214,11 @@ function matchWeekends() {
   nanCheck(array1, 'в первом поле ввода', input1);
   nanCheck(array2, 'во втором поле ввода', input2);
 
-  inputValue1 = array1;
-  inputValue2 = array2;
+  inputValue1 = [...array1];
+  inputValue2 = [...array2];
 
-  commonDates = matchDate(inputValue1, inputValue2);
+  // commonDates = matchDate(inputValue1, inputValue2);
+  commonDates = inputValue1.filter((element) => inputValue2.includes(element)); // Заменяет функцию с 167 строки
 
   weekend1.innerText = `Количество выходных: ${array1.length}`;
   weekend2.innerText = `Количество выходных: ${array2.length}`;
@@ -134,77 +226,8 @@ function matchWeekends() {
   submitBtn.style.display = 'none';
   allWeekends.innerText = `Количество общих выходных: ${commonDates.length}`;
 }
-// 1, 2, 5, 6, 10, 11, 15, 16, 19, 20, 24, 26, 27, 30, 31
+// 1, 2, 5, 6, 10, 11, 15, 16, 19, 24, 26, 27, 30, 31
 // 1, 4, 5, 8, 9, 12, 13, 16, 17, 20, 21, 24, 25, 27, 28, 29, 30, 31
-
-//
-//
-// В этой функции каждый элемент массива преобразуется из строки в число
-function stringToNum(array) {
-  for (let i = 0; i < array.length; i++) {
-    array[i] = Number(array[i]);
-  }
-}
-
-//
-//
-// Эта функция проверяет, каждый элемент массива на NaN, если он NaN, то в кнопке показывает в какоп поле ввода ошибка
-function nanCheck(array, arrayName, inputVal) {
-  for (let i = 0; i < array.length; i++) {
-    if (isNaN(array[i])) {
-      console.log(`Элемент: ${array[i]} массива: ${arrayName} --- NaN`);
-      // submitBtn.style.color = '#00ffffff';
-      inputVal.style.color = '#00ffffff';
-      // return (submitBtn.innerText = `Ошибка ${arrayName}, укажите именно числа!`);
-      return (inputVal.value = `Ошибка, укажите именно числа!`);
-    } else {
-      console.log(`Элемент: ${array[i]} массива: ${arrayName} - не NaN `);
-    }
-  }
-}
-
-//
-//
-// Функция Добавляет элементы массива на календарь
-function addDateColorV2(arr, classNumber) {
-  const day = document.querySelectorAll('.day-item:not(.empty)'); // Получает не пустой элемент календаря
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < day.length; j++) {
-      if (arr[i] == Number(day[j].textContent)) {
-        day[j].classList.add(`${classNumber}`); //num-1
-      }
-    }
-  }
-}
-
-//
-//
-//Функция, которая Убирает элементы массива с календаря
-function delDateColor(arr, classNumber) {
-  const day = document.querySelectorAll('.day-item:not(.empty)'); // Получает не пустой элемент календаря
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < day.length; j++) {
-      if (arr[i] == Number(day[j].textContent)) {
-        day[j].classList.remove(`${classNumber}`); //num-1
-      }
-    }
-  }
-}
-
-//
-//
-// Функция, которая показывает совпадения выходных
-function matchDate(arr1, arr2) {
-  const matches = [];
-  for (let i = 0; i < arr1.length; i++) {
-    for (let j = 0; j < arr2.length; j++) {
-      if (arr1[i] === arr2[j]) {
-        matches.push(arr1[i]);
-      }
-    }
-  }
-  return matches;
-}
 
 //
 // Если слайдер 1 включается, то подсвечиваются дни булки
@@ -220,6 +243,8 @@ slider1.addEventListener('click', () => {
   }
 });
 
+// Если слайдер 2 включается, то подсвечиваются дни СимБулки
+// Обработчик слайдера2
 slider2.addEventListener('click', () => {
   if (slider2.checked) {
     console.log('Слайдер включён');
@@ -231,6 +256,8 @@ slider2.addEventListener('click', () => {
   }
 });
 
+// Если слайдер 3 включается, то подсвечиваются дни Общие
+// Обработчик слайдера3
 slider3.addEventListener('click', () => {
   if (slider3.checked) {
     console.log('Слайдер включён');
