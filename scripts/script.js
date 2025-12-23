@@ -134,10 +134,10 @@ const nanCheck = (array, inputArea, inputVal) => {
   // После
   const hasNaN = array.some((element) => {
     if (isNaN(element)) {
-      console.log(`Элемент: ${element} ${inputArea} - NaN`);
+      // console.log(`Элемент: ${element} ${inputArea} - NaN`);
       return true; // нашли NaN - прерываем поиск
     } else {
-      console.log(`Элемент: ${element} ${inputArea} - не NaN`);
+      // console.log(`Элемент: ${element} ${inputArea} - не NaN`);
       return false;
     }
   });
@@ -205,8 +205,8 @@ const delDateColor = (arr, removeClass) => {
 
 //В инпут вводятся цифры, через запятую, в массив приходят цифры в виде строки, которые разделяются на эелемнты массива через запятую.
 function matchWeekends() {
-  array1 = input1.value.split(',');
-  array2 = input2.value.split(',');
+  array1 = input1.value.split(' ');
+  array2 = input2.value.split(' ');
 
   stringToNum(array1);
   stringToNum(array2);
@@ -226,8 +226,10 @@ function matchWeekends() {
   submitBtn.style.display = 'none';
   allWeekends.innerText = `Количество общих выходных: ${commonDates.length}`;
 }
-// 1, 2, 5, 6, 10, 11, 15, 16, 19, 24, 26, 27, 30, 31
-// 1, 4, 5, 8, 9, 12, 13, 16, 17, 20, 21, 24, 25, 27, 28, 29, 30, 31
+// Булка
+// 1 2 5 6 10 11 15 16 19 24 26 27 30 31
+// Я
+// 1 4 5 8 9 12 13 16 17 20 21 24 25 26 27 28 29
 
 //
 // Если слайдер 1 включается, то подсвечиваются дни булки
