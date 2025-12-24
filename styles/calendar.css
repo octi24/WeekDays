@@ -1,5 +1,9 @@
 /* CALENDAR */
-
+.calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 .calendar {
   width: 21.875rem;
 
@@ -151,15 +155,37 @@
 
 .day-item.num-1 {
   color: #fff;
-  background-color: rgba(255, 0, 115, 0.45);
+  /* background-color: #b60152; */
 }
 
 .day-item.num-2 {
   color: #fff;
-  background-color: rgba(255, 60, 0, 0.45);
+  /* background-color: #b72b00; */
 }
 
 .day-item.match-num {
   color: #fff;
-  background-color: rgba(0, 255, 13, 0.6);
+  /* background-color: #00b509; */
+}
+
+.color-legendary {
+  font-size: 1.1rem;
+}
+
+.color-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  p {
+    flex-basis: 6.25rem;
+  }
+}
+.color-input {
+  background-color: transparent;
+  width: 1.5625rem;
+  border: none;
+  cursor: pointer;
+}
+.common-color {
+  cursor: default;
 }

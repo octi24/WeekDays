@@ -31,3 +31,13 @@
     font-size: 1rem;
   }
 }
+.color-legendary {
+  display: flex;
+  gap: 0.3125rem;
+  .color-wrapper {
+    gap: 0.3125rem;
+    p {
+      flex-basis: auto;
+    }
+  }
+}

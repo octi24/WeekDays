@@ -18,60 +18,89 @@
   </head>
   <body>
     <div class="container">
-      <div class="calendar">
-        <div class="calendar-head">
-          <div class="month-title">
-            <p class="month">Месяц</p>
-            <p class="year">Год</p>
+      <div class="calendar-wrapper">
+        <div class="calendar">
+          <div class="calendar-head">
+            <div class="month-title">
+              <p class="month">Месяц</p>
+              <p class="year">Год</p>
+            </div>
+            <div class="arrows-btn">
+              <button class="arrow-btn-1 arrow-btn"></button>
+              <button class="arrow-btn-2 arrow-btn"></button>
+            </div>
           </div>
-          <div class="arrows-btn">
-            <button class="arrow-btn-1 arrow-btn"></button>
-            <button class="arrow-btn-2 arrow-btn"></button>
+          <div class="calendar-line"></div>
+          <div class="calendar-main">
+            <div class="day-week">
+              <p class="week-item">Пн</p>
+              <p class="week-item">Вт</p>
+              <p class="week-item">Ср</p>
+              <p class="week-item">Чт</p>
+              <p class="week-item">Пт</p>
+              <p class="week-item">Сб</p>
+              <p class="week-item">Вс</p>
+            </div>
+            <div class="days">
+              <p class="day-item">1</p>
+              <p class="day-item">2</p>
+              <p class="day-item">3</p>
+              <p class="day-item">4</p>
+              <p class="day-item">5</p>
+              <p class="day-item">6</p>
+              <p class="day-item">7</p>
+              <p class="day-item">8</p>
+              <p class="day-item">9</p>
+              <p class="day-item">10</p>
+              <p class="day-item">11</p>
+              <p class="day-item">12</p>
+              <p class="day-item">13</p>
+              <p class="day-item">14</p>
+              <p class="day-item">15</p>
+              <p class="day-item">16</p>
+              <p class="day-item">17</p>
+              <p class="day-item">18</p>
+              <p class="day-item">19</p>
+              <p class="day-item">20</p>
+              <p class="day-item">21</p>
+              <p class="day-item">22</p>
+              <p class="day-item">23</p>
+              <p class="day-item">24</p>
+              <p class="day-item">25</p>
+              <p class="day-item">26</p>
+              <p class="day-item">27</p>
+              <p class="day-item">28</p>
+              <p class="day-item">29</p>
+              <p class="day-item">30</p>
+              <p class="day-item">31</p>
+            </div>
           </div>
         </div>
-        <div class="calendar-line"></div>
-        <div class="calendar-main">
-          <div class="day-week">
-            <p class="week-item">Пн</p>
-            <p class="week-item">Вт</p>
-            <p class="week-item">Ср</p>
-            <p class="week-item">Чт</p>
-            <p class="week-item">Пт</p>
-            <p class="week-item">Сб</p>
-            <p class="week-item">Вс</p>
+        <div class="color-legendary">
+          <div class="color-wrapper">
+            <p>Цвет Жены:</p>
+            <input
+              type="color"
+              class="wife-color color-input"
+              value="#b60152"
+            />
           </div>
-          <div class="days">
-            <p class="day-item">1</p>
-            <p class="day-item">2</p>
-            <p class="day-item">3</p>
-            <p class="day-item">4</p>
-            <p class="day-item">5</p>
-            <p class="day-item">6</p>
-            <p class="day-item">7</p>
-            <p class="day-item">8</p>
-            <p class="day-item">9</p>
-            <p class="day-item">10</p>
-            <p class="day-item">11</p>
-            <p class="day-item">12</p>
-            <p class="day-item">13</p>
-            <p class="day-item">14</p>
-            <p class="day-item">15</p>
-            <p class="day-item">16</p>
-            <p class="day-item">17</p>
-            <p class="day-item">18</p>
-            <p class="day-item">19</p>
-            <p class="day-item">20</p>
-            <p class="day-item">21</p>
-            <p class="day-item">22</p>
-            <p class="day-item">23</p>
-            <p class="day-item">24</p>
-            <p class="day-item">25</p>
-            <p class="day-item">26</p>
-            <p class="day-item">27</p>
-            <p class="day-item">28</p>
-            <p class="day-item">29</p>
-            <p class="day-item">30</p>
-            <p class="day-item">31</p>
+          <div class="color-wrapper">
+            <p>Цвет Мужа:</p>
+            <input
+              type="color"
+              class="husband-color color-input"
+              value="#b72b00"
+            />
+          </div>
+          <div class="color-wrapper">
+            <p>Общие</p>
+            <input
+              type="color"
+              class="common-color color-input"
+              value="#00b509"
+              disabled
+            />
           </div>
         </div>
       </div>

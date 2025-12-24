@@ -38,6 +38,13 @@ const slider3 = document.querySelector('.slider-3'); // Кнопка-слайд�
 const weekend1 = document.querySelector('.weekends.weekend-1'); // Параграф1 с количеством выходных
 const weekend2 = document.querySelector('.weekends.weekend-2'); // Параграф2 с количеством выходных
 const allWeekends = document.querySelector('.common-dates');
+const colorWife = document.querySelector('.wife-color');
+const colorHusband = document.querySelector('.husband-color');
+const colorCommon = document.querySelector('.common-color');
+
+let num1;
+let num2;
+let matchNum;
 let array1 = [];
 let array2 = [];
 let inputValue1 = []; // Даты выходных с поля ввода1
@@ -125,13 +132,13 @@ const nanCheck = (array, inputArea, inputVal) => {
   // До
   // for (let i = 0; i < array.length; i++) {
   //   if (isNaN(array[i])) {
-  //     console.log(`Элемент: ${array[i]} массива: ${arrayName} --- NaN`);
+  //     console.log(`Элемент: ${array[i]} массива: ${inputArea} --- NaN`);
   //     // submitBtn.style.color = '#00ffffff';
   //     inputVal.style.color = '#00ffffff';
-  //     // return (submitBtn.innerText = `Ошибка ${arrayName}, укажите именно числа!`);
+  //     // return (submitBtn.innerText = `Ошибка ${inputArea}, укажите именно числа!`);
   //     return (inputVal.value = `Ошибка, укажите именно числа!`);
   //   } else {
-  //     console.log(`Элемент: ${array[i]} массива: ${arrayName} - не NaN `);
+  //     console.log(`Элемент: ${array[i]} массива: ${inputArea} - не NaN `);
   //   }
   // }
   // После
@@ -193,6 +200,11 @@ const delDateColor = (arr, removeClass) => {
 
 //
 //
+// Функция, которая показывает какой цвет у мужа и жены
+const colorHighlighted = () => {};
+
+//
+//
 // Функция, которая показывает совпадения выходных
 // const matchDate = (arr1, arr2) => {
 //   const matches = [];
@@ -235,30 +247,47 @@ function matchWeekends() {
 // 1 4 5 8 9 12 13 16 17 20 21 24 25 26 27 28 29
 
 //
-// Если слайдер 1 включается, то подсвечиваются дни булки
+//
+//
+//
+// Если слайдер 1 включается, то подсвечиваются дни Жены
 // Обработчик слайдера1
 slider1.addEventListener('click', () => {
   if (slider1.checked) {
     console.log('Слайдер включён');
     console.log(inputValue1);
     addDateColorV2(inputValue1, 'num-1');
+    num1 = document.querySelectorAll('.num-1');
+    num1.forEach((el) => (el.style.backgroundColor = colorWife.value));
   } else {
     console.log('Слайдер выключен');
     delDateColor(inputValue1, 'num-1');
+    num1.forEach((el) => el.removeAttribute('style'));
   }
 });
 
-// Если слайдер 2 включается, то подсвечиваются дни СимБулки
+colorWife.addEventListener('input', () => {
+  num1.forEach((el) => (el.style.backgroundColor = colorWife.value));
+});
+
+// Если слайдер 2 включается, то подсвечиваются дни Мужа
 // Обработчик слайдера2
 slider2.addEventListener('click', () => {
   if (slider2.checked) {
     console.log('Слайдер включён');
     console.log(inputValue2);
     addDateColorV2(inputValue2, 'num-2');
+    num2 = document.querySelectorAll('.num-2');
+    num2.forEach((el) => (el.style.backgroundColor = colorHusband.value));
   } else {
     console.log('Слайдер выключен');
     delDateColor(inputValue2, 'num-2');
+    num2.forEach((el) => el.removeAttribute('style'));
   }
+});
+
+colorHusband.addEventListener('input', () => {
+  num2.forEach((el) => (el.style.backgroundColor = colorHusband.value));
 });
 
 // Если слайдер 3 включается, то подсвечиваются дни Общие
@@ -268,8 +297,11 @@ slider3.addEventListener('click', () => {
     console.log('Слайдер включён');
     console.log(commonDates);
     addDateColorV2(commonDates, 'match-num');
+    matchNum = document.querySelectorAll('.match-num');
+    matchNum.forEach((el) => (el.style.backgroundColor = colorCommon.value));
   } else {
     console.log('Слайдер выключен');
     delDateColor(commonDates, 'match-num');
+    matchNum.forEach((el) => el.removeAttribute('style'));
   }
 });
