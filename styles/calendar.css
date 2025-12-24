@@ -165,7 +165,7 @@
 
 .day-item.match-num {
   color: #fff;
-  /* background-color: #00b509; */
+  background-color: #00b509 !important;
 }
 
 .color-legendary {
