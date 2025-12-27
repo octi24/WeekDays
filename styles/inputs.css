@@ -16,10 +16,10 @@
 
     transition: all 0.2s ease;
 
-    color: #f8fafc;
+    color: var(--text-color);
     border: 2px solid #333333;
     border-radius: 0.625rem;
-    background-color: #252525;
+    background-color: var(--dark-elements-bg);
   }
 
   .input-field::placeholder {
@@ -27,7 +27,7 @@
   }
 
   .input-field:focus {
-    border-color: #ff3b5fde;
+    border-color: var(--buttons-bg);
     outline: none;
     box-shadow: 0 0 0 3px rgba(255, 59, 95, 0.222);
   }
@@ -54,7 +54,7 @@
 
   color: #fff;
   border-radius: 10px;
-  background-color: #ff3b5f;
+  background-color: var(--buttons-bg);
 }
 
 /* Toggle box */
@@ -97,7 +97,7 @@
   transition: 0.4s;
 
   border-radius: 34px;
-  background-color: #ccc;
+  background-color: var(--slider-btn-bg);
 }
 
 .slider:before {
@@ -112,11 +112,11 @@
   transition: 0.4s;
 
   border-radius: 50%;
-  background-color: white;
+  background-color: #fff;
 }
 
 input:checked + .slider {
-  background-color: #ff3b5f;
+  background-color: var(--buttons-bg);
 }
 
 input:checked + .slider:before {

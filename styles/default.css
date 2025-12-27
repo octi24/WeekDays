@@ -1,7 +1,25 @@
+:root {
+  --dark-bg: #1b1b1b;
+  --dark-elements-bg: #2c2c2c;
+  --buttons-bg: #ff3b5f;
+  --slider-btn-bg: #ccc;
+  --text-color: #f8fafc;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+
+  color: var(--text-color);
 }
 
 input {
@@ -14,18 +32,19 @@ input {
 
 body {
   font-family: 'DM-Sans', sans-serif;
-
   font-size: 1.5rem;
 
-  color: #f8fafc;
-  background: #1b1b1b;
+  color: var(--text-color);
+  background: var(--dark-bg);
 }
 
 button {
   margin: 0;
   padding: 0;
 
+  cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transition: all 0.2s ease-out;
 
   border: none;
   outline: none;
@@ -37,13 +56,18 @@ button:active {
   box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+button:hover {
+  background-color: #9b243a;
+}
+
 .container {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 100%;
-  /* height: 100vh; */
   min-height: 100vh;
 
   gap: 30px;

@@ -1,9 +1,12 @@
 /* CALENDAR */
+
 .calendar-wrapper {
   display: flex;
   flex-direction: column;
+
   gap: 15px;
 }
+
 .calendar {
   width: 21.875rem;
 
@@ -50,7 +53,7 @@
   cursor: pointer;
 
   border-radius: 0.5rem;
-  background-color: #ff3b5f;
+  background-color: var(--buttons-bg);
 }
 
 .arrow-btn::before {
@@ -142,7 +145,7 @@
 
 .day-item.current-day {
   color: white;
-  background-color: #ff3b5f;
+  background-color: var(--buttons-bg);
 }
 
 /* GROK Добавлено: Стили для пустых ячеек (заполнителей) в начале месяца, чтобы они не были кликабельны и не имели фона */
@@ -155,11 +158,13 @@
 
 .day-item.num-1 {
   color: #fff;
+
   /* background-color: #b60152; */
 }
 
 .day-item.num-2 {
   color: #fff;
+
   /* background-color: #b72b00; */
 }
 
@@ -175,17 +180,22 @@
 .color-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  justify-content: space-between;
+
   p {
     flex-basis: 6.25rem;
   }
 }
+
 .color-input {
-  background-color: transparent;
   width: 1.5625rem;
-  border: none;
+
   cursor: pointer;
+
+  border: none;
+  background-color: transparent;
 }
+
 .common-color {
   cursor: default;
 }

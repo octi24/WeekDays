@@ -14,10 +14,16 @@
     <link rel="stylesheet" href="./styles/default.css" />
     <link rel="stylesheet" href="./styles/calendar.css" />
     <link rel="stylesheet" href="./styles/inputs.css" />
+    <link rel="stylesheet" href="./styles/modal-window.css" />
     <link rel="stylesheet" href="./styles/responsive.css" />
   </head>
   <body>
     <div class="container">
+      <div class="modal-window-container">
+        <div class="card">
+          <div class="saved"></div>
+        </div>
+      </div>
       <div class="calendar-wrapper">
         <div class="calendar">
           <div class="calendar-head">
@@ -82,7 +88,7 @@
             <input
               type="color"
               class="wife-color color-input"
-              value="#b60152"
+              value="#a200b8"
             />
           </div>
           <div class="color-wrapper">
@@ -90,7 +96,7 @@
             <input
               type="color"
               class="husband-color color-input"
-              value="#b72b00"
+              value="#00b3b0"
             />
           </div>
           <div class="color-wrapper">
@@ -106,7 +112,8 @@
       </div>
 
       <div class="inputs">
-        <div class="input-1-wrapper input-wrapper">
+        <button class="input-btn modal-menu">Сохранённые данные</button>
+        <div class="input-wrapper">
           <label for="input-1" class="input-1-label input-label"
             >Выходные Жены:</label
           >
@@ -120,7 +127,7 @@
           <p class="weekends weekend-1"></p>
         </div>
 
-        <div class="input-2-wrapper input-wrapper">
+        <div class="input-wrapper">
           <label for="input-2" class="input-2-label input-label"
             >Выходные Мужа:</label
           >
@@ -154,7 +161,12 @@
           </label>
         </div>
 
-        <button class="input-btn" onclick="matchWeekends()">Подтвердить</button>
+        <button class="input-btn submit-btn" onclick="matchWeekends()">
+          Подтвердить
+        </button>
+        <button class="input-btn save-btn" onclick="saveInLocalStorage()">
+          Сохранить
+        </button>
         <p class="common-dates"></p>
       </div>
     </div>

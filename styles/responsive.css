@@ -1,7 +1,7 @@
 @media screen and (max-width: 700px) {
   .container {
     flex-direction: column;
-    padding: 2.5rem 0;
+    padding: 0.625rem 0 2.5rem 0;
   }
   .inputs {
     gap: 1.25rem;
@@ -35,7 +35,7 @@
   display: flex;
   gap: 0.3125rem;
   .color-wrapper {
-    gap: 0.3125rem;
+    justify-content: space-between;
     p {
       flex-basis: auto;
     }

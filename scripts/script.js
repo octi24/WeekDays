@@ -1,5 +1,10 @@
-// TODO Добавить легенду цветов
-// TODO Сохранение данных за месяц по нажатии на кнопку
+// TODO Добавить легенду цветов ✅
+// TODO Сохранение данных за месяц по нажатии на кнопку ✅
+// TODO скролл к сохранённым данным ✅
+// TODO год к сохранённому месяцу ✅
+// TODO кнопка, которое открывает и закрывает модальное окно ❌
+// TODO доделать бургер ❌
+// TODO кнопка очисти воода
 
 // Добавлено: Массив с названиями месяцев на русском для отображения
 const months = [
@@ -29,7 +34,7 @@ const yearEl = document.querySelector('.year');
 const daysEl = document.querySelector('.days');
 const prevBtn = document.querySelector('.arrow-btn-1'); // Кнопка переключения месяца назад
 const nextBtn = document.querySelector('.arrow-btn-2'); // Кнопка переключения месяца вперёд
-const submitBtn = document.querySelector('.input-btn'); // Кнопка подтвердить
+const submitBtn = document.querySelector('.submit-btn'); // Кнопка подтвердить
 const input1 = document.querySelector('.input-1'); // Поле ввода1
 const input2 = document.querySelector('.input-2'); // Поле ввода2
 const slider1 = document.querySelector('.slider-1'); // Кнопка-слайдер1
@@ -41,6 +46,14 @@ const allWeekends = document.querySelector('.common-dates');
 const colorWife = document.querySelector('.wife-color');
 const colorHusband = document.querySelector('.husband-color');
 const colorCommon = document.querySelector('.common-color');
+const localStorageVal1 = localStorage.getItem('inputVal1');
+const localStorageVal2 = localStorage.getItem('inputVal2');
+const localStorageMonth = localStorage.getItem('savedMonth');
+const saveBtn = document.querySelector('.save-btn');
+const modalMenu = document.querySelector('.modal-menu');
+const savedTextContainer = document.querySelector('.saved');
+const modalWindowContainer = document.querySelector('.modal-window-container');
+const modalItem = document.querySelector('.modal-item');
 
 let num1;
 let num2;
@@ -56,6 +69,8 @@ function renderCalendar() {
   // Добавлено: Обновление текста месяца и года на текущие
   monthEl.textContent = months[currentMonth];
   yearEl.textContent = currentYear;
+
+  // months[currentMonth];
 
   // Добавлено: Очистка контейнера дней перед заполнением
   daysEl.innerHTML = '';
@@ -198,26 +213,6 @@ const delDateColor = (arr, removeClass) => {
   });
 };
 
-//
-//
-// Функция, которая показывает какой цвет у мужа и жены
-const colorHighlighted = () => {};
-
-//
-//
-// Функция, которая показывает совпадения выходных
-// const matchDate = (arr1, arr2) => {
-//   const matches = [];
-//   for (let i = 0; i < arr1.length; i++) {
-//     for (let j = 0; j < arr2.length; j++) {
-//       if (arr1[i] === arr2[j]) {
-//         matches.push(arr1[i]);
-//       }
-//     }
-//   }
-//   return matches;
-// };
-
 //В инпут вводятся цифры, через запятую, в массив приходят цифры в виде строки, которые разделяются на эелемнты массива через запятую.
 function matchWeekends() {
   array1 = input1.value.split(' ');
@@ -241,17 +236,118 @@ function matchWeekends() {
   submitBtn.style.display = 'none';
   allWeekends.innerText = `Количество общих выходных: ${commonDates.length}`;
 }
-// Булка
-// 1 2 5 6 10 11 15 16 19 24 26 27 30 31
-// Я
-// 1 4 5 8 9 12 13 16 17 20 21 24 25 26 27 28 29
+
+// Сохраняем массивом
+function saveInLocalStorage() {
+  const inputValue1 = input1.value;
+  const inputValue2 = input2.value;
+
+  // Получаем текущий месяц из календаря (предполагаю, что у тебя есть переменная currentMonth)
+  const currentMonthName = months[currentMonth]; // или как ты получаешь название месяца
+
+  if (inputValue1.length > 0 || inputValue2.length > 0) {
+    // Получаем существующий массив или создаём новый
+    let savedArray = JSON.parse(localStorage.getItem('savedData')) || [];
+
+    // Добавляем новое сохранение с месяцем
+    savedArray.push({
+      month: currentMonthName,
+      value1: inputValue1,
+      value2: inputValue2
+    });
+
+    // Сохраняем обновлённый массив
+    localStorage.setItem('savedData', JSON.stringify(savedArray));
+
+    // Обновляем отображение
+    displaySavedData();
+
+    console.log('saved');
+  } else {
+    console.log('error');
+  }
+}
+
+// Функция для отображения всех сохранений
+function displaySavedData() {
+  // Очищаем контейнер
+  savedTextContainer.innerHTML = '';
+
+  // Получаем массив сохранений
+  const savedArray = JSON.parse(localStorage.getItem('savedData')) || [];
+
+  // Отображаем каждый элемент массива
+  savedArray.forEach((item, index) => {
+    // Добавляем обёртку
+    const saveContainer = document.createElement('div');
+    saveContainer.classList.add('save-container');
+    savedTextContainer.appendChild(saveContainer);
+
+    // Добавляем контейнер для разделения текста и изображения мусорки
+    const savedText = document.createElement('div');
+    savedText.classList.add('saved-text');
+    saveContainer.appendChild(savedText);
+
+    // Добавляем месяц и год
+    const monthEl = document.createElement('p');
+    monthEl.classList.add('saved-month');
+    monthEl.innerText = `${item.month} ${currentYear}`;
+    // savedTextContainer.appendChild(monthEl);
+    savedText.appendChild(monthEl);
+
+    // Добавляем значение 1, если оно есть
+    if (item.value1 && item.value1.length > 0) {
+      const save1 = document.createElement('p');
+      save1.classList.add('save-1');
+      save1.innerText = `Жена: ${item.value1}`;
+      // savedTextContainer.appendChild(save1);
+      savedText.appendChild(save1);
+    }
+
+    // Добавляем значение 2, если оно есть
+    if (item.value2 && item.value2.length > 0) {
+      const save2 = document.createElement('p');
+      save2.classList.add('save-2');
+      save2.innerText = `Муж: ${item.value2}`;
+      // savedTextContainer.appendChild(save2);
+      savedText.appendChild(save2);
+    }
+
+    // Добавляем изображение мусорки
+    const trashCan = document.createElement('img');
+    trashCan.setAttribute('src', './assets/TrashCan.svg');
+    trashCan.classList.add('trash-can');
+    saveContainer.appendChild(trashCan);
+
+    // Обработчик удаления
+    trashCan.addEventListener('click', () => {
+      const currentArray = JSON.parse(localStorage.getItem('savedData')) || [];
+      if (index >= 0 && index < currentArray.length) {
+        currentArray.splice(index, 1);
+        localStorage.setItem('savedData', JSON.stringify(currentArray));
+        displaySavedData();
+      }
+    });
+
+    // Добавляем разделитель (кроме последнего элемента)
+    if (index < savedArray.length - 1) {
+      const separator = document.createElement('hr');
+      savedTextContainer.appendChild(separator);
+    }
+  });
+}
+// При загрузке страницы отображаем все сохранения
+document.addEventListener('DOMContentLoaded', function () {
+  displaySavedData();
+});
 
 //
 //
 //
 //
-// Если слайдер 1 включается, то подсвечиваются дни Жены
+
 // Обработчик слайдера1
+// Если слайдер 1 включается, то подсвечиваются дни Жены
 slider1.addEventListener('click', () => {
   if (slider1.checked) {
     console.log('Слайдер включён');
@@ -266,12 +362,13 @@ slider1.addEventListener('click', () => {
   }
 });
 
+// Обработчик на изменение цвета выходных дней Жены
 colorWife.addEventListener('input', () => {
   num1.forEach((el) => (el.style.backgroundColor = colorWife.value));
 });
 
-// Если слайдер 2 включается, то подсвечиваются дни Мужа
 // Обработчик слайдера2
+// Если слайдер 2 включается, то подсвечиваются дни Мужа
 slider2.addEventListener('click', () => {
   if (slider2.checked) {
     console.log('Слайдер включён');
@@ -286,12 +383,13 @@ slider2.addEventListener('click', () => {
   }
 });
 
+// Обработчик на изменение цвета выходных дней Мужа
 colorHusband.addEventListener('input', () => {
   num2.forEach((el) => (el.style.backgroundColor = colorHusband.value));
 });
 
-// Если слайдер 3 включается, то подсвечиваются дни Общие
 // Обработчик слайдера3
+// Если слайдер 3 включается, то подсвечиваются дни Общие
 slider3.addEventListener('click', () => {
   if (slider3.checked) {
     console.log('Слайдер включён');
@@ -303,5 +401,32 @@ slider3.addEventListener('click', () => {
     console.log('Слайдер выключен');
     delDateColor(commonDates, 'match-num');
     matchNum.forEach((el) => el.removeAttribute('style'));
+  }
+});
+
+// Обработчик события на открытие модального окна
+modalMenu.addEventListener('click', () => {
+  modalWindowContainer.style.display = 'flex';
+  savedTextContainer.style.display = 'block';
+});
+
+// Обработчик события на закрытие модального окна при нажатии на затемнённую область
+modalWindowContainer.addEventListener('click', (event) => {
+  if (event.target === event.currentTarget) {
+    modalWindowContainer.style.display = 'none';
+  }
+});
+
+// Обработчик сохранённого значения. При нажатии вводится в инпут
+savedTextContainer.addEventListener('click', (event) => {
+  if (event.target.classList.contains('save-1')) {
+    input1.value = event.target.innerText.replace('Жена: ', '');
+    modalWindowContainer.style.display = 'none';
+  }
+});
+savedTextContainer.addEventListener('click', (event) => {
+  if (event.target.classList.contains('save-2')) {
+    input2.value = event.target.innerText.replace('Муж: ', '');
+    modalWindowContainer.style.display = 'none';
   }
 });
