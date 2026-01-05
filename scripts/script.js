@@ -4,7 +4,10 @@
 // TODO год к сохранённому месяцу ✅
 // TODO кнопка, которое открывает и закрывает модальное окно ❌
 // TODO доделать бургер ❌
-// TODO кнопка очисти воода
+// TODO кнопка очистки воода
+// TODO разобраться почему при пустых полях ввода показывается кол-во выходных 1 ✅
+// TODO при нажатии на число календаря, добавлять его в поле ввода ✅
+// TODO если галочка возле поля ввода Жены, то выбранное число календаря добавляется в него ✅
 
 // Добавлено: Массив с названиями месяцев на русском для отображения
 const months = [
@@ -69,8 +72,6 @@ function renderCalendar() {
   // Добавлено: Обновление текста месяца и года на текущие
   monthEl.textContent = months[currentMonth];
   yearEl.textContent = currentYear;
-
-  // months[currentMonth];
 
   // Добавлено: Очистка контейнера дней перед заполнением
   daysEl.innerHTML = '';
@@ -173,6 +174,15 @@ const nanCheck = (array, inputArea, inputVal) => {
   }
 };
 
+const emptyCheck = (input, arr) => {
+  if (input.value === '') {
+    arr = [];
+  } else {
+    arr = input.value.split(' ');
+  }
+  return arr;
+};
+
 //
 //
 // Функция Добавляет элементы массива на календарь
@@ -215,8 +225,11 @@ const delDateColor = (arr, removeClass) => {
 
 //В инпут вводятся цифры, через запятую, в массив приходят цифры в виде строки, которые разделяются на эелемнты массива через запятую.
 function matchWeekends() {
-  array1 = input1.value.split(' ');
-  array2 = input2.value.split(' ');
+  array1 = emptyCheck(input1, array1);
+  array2 = emptyCheck(input2, array2);
+
+  weekend1.innerText = `Количество выходных: ${array1.length}`;
+  weekend2.innerText = `Количество выходных: ${array2.length}`;
 
   stringToNum(array1);
   stringToNum(array2);
@@ -229,9 +242,6 @@ function matchWeekends() {
 
   // commonDates = matchDate(inputValue1, inputValue2);
   commonDates = inputValue1.filter((element) => inputValue2.includes(element)); // Заменяет функцию с 167 строки
-
-  weekend1.innerText = `Количество выходных: ${array1.length}`;
-  weekend2.innerText = `Количество выходных: ${array2.length}`;
 
   submitBtn.style.display = 'none';
   allWeekends.innerText = `Количество общих выходных: ${commonDates.length}`;
@@ -429,4 +439,55 @@ savedTextContainer.addEventListener('click', (event) => {
     input2.value = event.target.innerText.replace('Муж: ', '');
     modalWindowContainer.style.display = 'none';
   }
+});
+
+daysEl.addEventListener('click', (event) => {
+  const target = event.target;
+  if (
+    target.classList.contains('day-item') &&
+    !target.classList.contains('empty')
+  ) {
+    console.log('Клик по элементу с классом item!');
+    if (inputLabel1.textContent === 'Выходные Жены: ✅') {
+      input1.value += `${target.innerText} `;
+    } else if (inputLabel2.textContent === 'Выходные Мужа: ✅') {
+      input2.value += `${target.innerText} `;
+    }
+  } else {
+    console.log('Клик по пустому месту контейнера!');
+  }
+});
+
+const inputLabel1 = document.querySelector('.input-1-label');
+inputLabel1.addEventListener('click', () => {
+  if (
+    inputLabel1.textContent === 'Выходные Жены:' &&
+    inputLabel2.textContent === 'Выходные Мужа: ✅'
+  ) {
+    inputLabel2.textContent = 'Выходные Мужа:';
+    inputLabel1.textContent = 'Выходные Жены: ✅';
+  }
+});
+inputLabel1.addEventListener('mouseenter', () => {
+  inputLabel1.style.color = '#a6a6a6';
+});
+inputLabel1.addEventListener('mouseleave', () => {
+  inputLabel1.removeAttribute('style');
+});
+
+const inputLabel2 = document.querySelector('.input-2-label');
+inputLabel2.addEventListener('click', () => {
+  if (
+    inputLabel2.textContent === 'Выходные Мужа:' &&
+    inputLabel1.textContent === 'Выходные Жены: ✅'
+  ) {
+    inputLabel1.textContent = 'Выходные Жены:';
+    inputLabel2.textContent = 'Выходные Мужа: ✅';
+  }
+});
+inputLabel2.addEventListener('mouseenter', () => {
+  inputLabel2.style.color = '#a6a6a6';
+});
+inputLabel2.addEventListener('mouseleave', () => {
+  inputLabel2.removeAttribute('style');
 });
