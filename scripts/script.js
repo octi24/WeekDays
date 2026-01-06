@@ -468,11 +468,15 @@ inputLabel1.addEventListener('click', () => {
     inputLabel1.textContent = 'Выходные Жены: ✅';
   }
 });
-inputLabel1.addEventListener('mouseenter', () => {
-  inputLabel1.style.color = '#a6a6a6';
+inputLabel1.addEventListener('pointerenter', (event) => {
+  if (event.pointerType === 'mouse') {
+    inputLabel1.style.color = '#a6a6a6';
+  }
 });
-inputLabel1.addEventListener('mouseleave', () => {
-  inputLabel1.removeAttribute('style');
+inputLabel1.addEventListener('pointerleave', (event) => {
+  if (event.pointerType === 'mouse') {
+    inputLabel1.removeAttribute('style');
+  }
 });
 
 const inputLabel2 = document.querySelector('.input-2-label');
@@ -485,9 +489,13 @@ inputLabel2.addEventListener('click', () => {
     inputLabel2.textContent = 'Выходные Мужа: ✅';
   }
 });
-inputLabel2.addEventListener('mouseenter', () => {
-  inputLabel2.style.color = '#a6a6a6';
+inputLabel2.addEventListener('pointerenter', (event) => {
+  if (event.pointerType === 'mouse') {
+    inputLabel2.style.color = '#a6a6a6';
+  }
 });
-inputLabel2.addEventListener('mouseleave', () => {
-  inputLabel2.removeAttribute('style');
+inputLabel2.addEventListener('pointerleave', (event) => {
+  if (event.pointerType === 'mouse') {
+    inputLabel2.removeAttribute('style');
+  }
 });
