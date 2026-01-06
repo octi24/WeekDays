@@ -2,6 +2,7 @@
   --dark-bg: #1b1b1b;
   --dark-elements-bg: #2c2c2c;
   --buttons-bg: #ff3b5f;
+  --buttons-hover: #9b243a;
   --slider-btn-bg: #ccc;
   --text-color: #f8fafc;
 }
@@ -10,6 +11,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  -webkit-user-select: none; /* Для Safari */
+  user-select: none;
 }
 
 ul {
@@ -67,4 +71,10 @@ button:active {
   min-height: 100vh;
 
   gap: 30px;
+}
+
+@media (hover: hover) {
+  button:hover {
+    background-color: var(--buttons-hover);
+  }
 }

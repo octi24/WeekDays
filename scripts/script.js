@@ -4,7 +4,7 @@
 // TODO год к сохранённому месяцу ✅
 // TODO кнопка, которое открывает и закрывает модальное окно ❌
 // TODO доделать бургер ❌
-// TODO кнопка очистки воода
+// TODO кнопка очистки воода ✅
 // TODO разобраться почему при пустых полях ввода показывается кол-во выходных 1 ✅
 // TODO при нажатии на число календаря, добавлять его в поле ввода ✅
 // TODO если галочка возле поля ввода Жены, то выбранное число календаря добавляется в него ✅
@@ -40,23 +40,19 @@ const nextBtn = document.querySelector('.arrow-btn-2'); // Кнопка пере
 const submitBtn = document.querySelector('.submit-btn'); // Кнопка подтвердить
 const input1 = document.querySelector('.input-1'); // Поле ввода1
 const input2 = document.querySelector('.input-2'); // Поле ввода2
-const slider1 = document.querySelector('.slider-1'); // Кнопка-слайдер1
-const slider2 = document.querySelector('.slider-2'); // Кнопка-слайдер2
-const slider3 = document.querySelector('.slider-3'); // Кнопка-слайдер3
 const weekend1 = document.querySelector('.weekends.weekend-1'); // Параграф1 с количеством выходных
 const weekend2 = document.querySelector('.weekends.weekend-2'); // Параграф2 с количеством выходных
 const allWeekends = document.querySelector('.common-dates');
 const colorWife = document.querySelector('.wife-color');
 const colorHusband = document.querySelector('.husband-color');
 const colorCommon = document.querySelector('.common-color');
-const localStorageVal1 = localStorage.getItem('inputVal1');
-const localStorageVal2 = localStorage.getItem('inputVal2');
-const localStorageMonth = localStorage.getItem('savedMonth');
-const saveBtn = document.querySelector('.save-btn');
-const modalMenu = document.querySelector('.modal-menu');
-const savedTextContainer = document.querySelector('.saved');
-const modalWindowContainer = document.querySelector('.modal-window-container');
-const modalItem = document.querySelector('.modal-item');
+const savedTextContainer = document.querySelector('.saved'); // Контейнер в модальном окне для сохранённых данных
+const modalWindowContainer = document.querySelector('.modal-window-container'); // Контейнер модального окна
+const inputsWrapper = document.querySelector('.inputs');
+const inputLabel1 = document.querySelector('.input-1-label');
+const inputLabel2 = document.querySelector('.input-2-label');
+const clearBtn = document.querySelectorAll('.clear-btn');
+const calendarWrapper = document.querySelector('.calendar-wrapper');
 
 let num1;
 let num2;
@@ -131,13 +127,8 @@ nextBtn.addEventListener('click', () => {
 // Добавлено: Инициальный вызов для синхронизации при загрузке
 renderCalendar();
 
-//
-//
 // В этой функции каждый элемент массива преобразуется из строки в число
 const stringToNum = (array) => {
-  // for (let i = 0; i < array.length; i++) {
-  //   array[i] = Number(array[i]);
-  // }
   array.forEach((element, index) => (array[index] = Number(element)));
 };
 
@@ -178,7 +169,11 @@ const emptyCheck = (input, arr) => {
   if (input.value === '') {
     arr = [];
   } else {
-    arr = input.value.split(' ');
+    if (input.value.at(-1) === ' ') {
+      arr = input.value.slice(0, -1).split(' ');
+    } else {
+      arr = input.value.split(' ');
+    }
   }
   return arr;
 };
@@ -223,13 +218,26 @@ const delDateColor = (arr, removeClass) => {
   });
 };
 
+const changeText = (newText, oldText) => {
+  submitBtn.textContent = newText;
+
+  submitBtn.style.transform = `scaleY(1.2)`;
+  submitBtn.style.cursor = 'default';
+  submitBtn.setAttribute('readonly', '');
+
+  setTimeout(() => {
+    submitBtn.textContent = oldText;
+    submitBtn.removeAttribute('style');
+  }, 5000);
+};
+
 //В инпут вводятся цифры, через запятую, в массив приходят цифры в виде строки, которые разделяются на эелемнты массива через запятую.
 function matchWeekends() {
   array1 = emptyCheck(input1, array1);
   array2 = emptyCheck(input2, array2);
 
-  weekend1.innerText = `Количество выходных: ${array1.length}`;
-  weekend2.innerText = `Количество выходных: ${array2.length}`;
+  weekend1.textContent = `Количество выходных: ${array1.length}`;
+  weekend2.textContent = `Количество выходных: ${array2.length}`;
 
   stringToNum(array1);
   stringToNum(array2);
@@ -243,11 +251,15 @@ function matchWeekends() {
   // commonDates = matchDate(inputValue1, inputValue2);
   commonDates = inputValue1.filter((element) => inputValue2.includes(element)); // Заменяет функцию с 167 строки
 
-  submitBtn.style.display = 'none';
+  changeText(
+    'Нажмите на соответствующие переключатели для активации!',
+    'Подсветить'
+  );
+
   allWeekends.innerText = `Количество общих выходных: ${commonDates.length}`;
 }
 
-// Сохраняем массивом
+// Функция для сохранения чисел массивом
 function saveInLocalStorage() {
   const inputValue1 = input1.value;
   const inputValue2 = input2.value;
@@ -351,73 +363,14 @@ document.addEventListener('DOMContentLoaded', function () {
   displaySavedData();
 });
 
-//
-//
-//
-//
-
-// Обработчик слайдера1
-// Если слайдер 1 включается, то подсвечиваются дни Жены
-slider1.addEventListener('click', () => {
-  if (slider1.checked) {
-    console.log('Слайдер включён');
-    console.log(inputValue1);
-    addDateColorV2(inputValue1, 'num-1');
-    num1 = document.querySelectorAll('.num-1');
-    num1.forEach((el) => (el.style.backgroundColor = colorWife.value));
-  } else {
-    console.log('Слайдер выключен');
-    delDateColor(inputValue1, 'num-1');
-    num1.forEach((el) => el.removeAttribute('style'));
-  }
-});
-
 // Обработчик на изменение цвета выходных дней Жены
 colorWife.addEventListener('input', () => {
   num1.forEach((el) => (el.style.backgroundColor = colorWife.value));
 });
 
-// Обработчик слайдера2
-// Если слайдер 2 включается, то подсвечиваются дни Мужа
-slider2.addEventListener('click', () => {
-  if (slider2.checked) {
-    console.log('Слайдер включён');
-    console.log(inputValue2);
-    addDateColorV2(inputValue2, 'num-2');
-    num2 = document.querySelectorAll('.num-2');
-    num2.forEach((el) => (el.style.backgroundColor = colorHusband.value));
-  } else {
-    console.log('Слайдер выключен');
-    delDateColor(inputValue2, 'num-2');
-    num2.forEach((el) => el.removeAttribute('style'));
-  }
-});
-
 // Обработчик на изменение цвета выходных дней Мужа
 colorHusband.addEventListener('input', () => {
   num2.forEach((el) => (el.style.backgroundColor = colorHusband.value));
-});
-
-// Обработчик слайдера3
-// Если слайдер 3 включается, то подсвечиваются дни Общие
-slider3.addEventListener('click', () => {
-  if (slider3.checked) {
-    console.log('Слайдер включён');
-    console.log(commonDates);
-    addDateColorV2(commonDates, 'match-num');
-    matchNum = document.querySelectorAll('.match-num');
-    matchNum.forEach((el) => (el.style.backgroundColor = colorCommon.value));
-  } else {
-    console.log('Слайдер выключен');
-    delDateColor(commonDates, 'match-num');
-    matchNum.forEach((el) => el.removeAttribute('style'));
-  }
-});
-
-// Обработчик события на открытие модального окна
-modalMenu.addEventListener('click', () => {
-  modalWindowContainer.style.display = 'flex';
-  savedTextContainer.style.display = 'block';
 });
 
 // Обработчик события на закрытие модального окна при нажатии на затемнённую область
@@ -429,20 +382,127 @@ modalWindowContainer.addEventListener('click', (event) => {
 
 // Обработчик сохранённого значения. При нажатии вводится в инпут
 savedTextContainer.addEventListener('click', (event) => {
-  if (event.target.classList.contains('save-1')) {
+  const target = event.target;
+
+  if (target.classList.contains('save-1')) {
     input1.value = event.target.innerText.replace('Жена: ', '');
     modalWindowContainer.style.display = 'none';
   }
 });
 savedTextContainer.addEventListener('click', (event) => {
-  if (event.target.classList.contains('save-2')) {
+  const target = event.target;
+
+  if (target.classList.contains('save-2')) {
     input2.value = event.target.innerText.replace('Муж: ', '');
     modalWindowContainer.style.display = 'none';
   }
 });
 
-daysEl.addEventListener('click', (event) => {
+inputsWrapper.addEventListener('click', (event) => {
   const target = event.target;
+
+  if (target.classList.contains('clear-btn')) {
+    if (target === clearBtn[0]) {
+      input1.value = '';
+    } else {
+      input2.value = '';
+    }
+    console.log(target); // const clearBtn
+  } else if (target.classList.contains('input-1-label')) {
+    if (
+      inputLabel1.textContent === 'Выходные Жены:' &&
+      inputLabel2.textContent === 'Выходные Мужа: ✅'
+    ) {
+      inputLabel2.textContent = 'Выходные Мужа:';
+      inputLabel1.textContent = 'Выходные Жены: ✅';
+    }
+    console.log(target); // const inputLabel1
+  } else if (target.classList.contains('input-2-label')) {
+    if (
+      inputLabel2.textContent === 'Выходные Мужа:' &&
+      inputLabel1.textContent === 'Выходные Жены: ✅'
+    ) {
+      inputLabel1.textContent = 'Выходные Жены:';
+      inputLabel2.textContent = 'Выходные Мужа: ✅';
+    }
+    console.log(target); //const inputLabel2
+  } else if (target.classList.contains('modal-menu')) {
+    modalWindowContainer.style.display = 'flex';
+    savedTextContainer.style.display = 'block';
+    console.log(target); // const savedDataBtn
+  } else if (target.classList.contains('slider-1')) {
+    if (target.checked) {
+      console.log('Слайдер включён');
+      console.log(inputValue1);
+      addDateColorV2(inputValue1, 'num-1');
+      num1 = document.querySelectorAll('.num-1');
+      num1.forEach((el) => (el.style.backgroundColor = colorWife.value));
+    } else {
+      console.log('Слайдер выключен');
+      delDateColor(inputValue1, 'num-1');
+      num1.forEach((el) => el.removeAttribute('style'));
+    }
+    console.log(target); //const slider1
+  } else if (target.classList.contains('slider-2')) {
+    if (target.checked) {
+      console.log('Слайдер включён');
+      console.log(inputValue2);
+      addDateColorV2(inputValue2, 'num-2');
+      num2 = document.querySelectorAll('.num-2');
+      num2.forEach((el) => (el.style.backgroundColor = colorHusband.value));
+    } else {
+      console.log('Слайдер выключен');
+      delDateColor(inputValue2, 'num-2');
+      num2.forEach((el) => el.removeAttribute('style'));
+    }
+    console.log(target); //const slider2
+  } else if (target.classList.contains('slider-3')) {
+    if (target.checked) {
+      console.log('Слайдер включён');
+      console.log(commonDates);
+      addDateColorV2(commonDates, 'match-num');
+      matchNum = document.querySelectorAll('.match-num');
+      matchNum.forEach((el) => (el.style.backgroundColor = colorCommon.value));
+    } else {
+      console.log('Слайдер выключен');
+      delDateColor(commonDates, 'match-num');
+      matchNum.forEach((el) => el.removeAttribute('style'));
+    }
+    console.log(target); //const slider3
+  }
+});
+
+inputsWrapper.addEventListener('pointerover', (event) => {
+  const target = event.target;
+
+  if (target.classList.contains('input-1-label')) {
+    if (event.pointerType === 'mouse') {
+      inputLabel1.style.color = '#a6a6a6';
+    }
+  } else if (target.classList.contains('input-2-label')) {
+    if (event.pointerType === 'mouse') {
+      target.style.color = '#a6a6a6';
+    }
+  }
+});
+
+inputsWrapper.addEventListener('pointerout', (event) => {
+  const target = event.target;
+
+  if (target.classList.contains('input-1-label')) {
+    if (event.pointerType === 'mouse') {
+      target.removeAttribute('style');
+    }
+  } else if (target.classList.contains('input-2-label')) {
+    if (event.pointerType === 'mouse') {
+      target.removeAttribute('style');
+    }
+  }
+});
+
+calendarWrapper.addEventListener('click', (event) => {
+  const target = event.target;
+
   if (
     target.classList.contains('day-item') &&
     !target.classList.contains('empty')
@@ -453,49 +513,5 @@ daysEl.addEventListener('click', (event) => {
     } else if (inputLabel2.textContent === 'Выходные Мужа: ✅') {
       input2.value += `${target.innerText} `;
     }
-  } else {
-    console.log('Клик по пустому месту контейнера!');
-  }
-});
-
-const inputLabel1 = document.querySelector('.input-1-label');
-inputLabel1.addEventListener('click', () => {
-  if (
-    inputLabel1.textContent === 'Выходные Жены:' &&
-    inputLabel2.textContent === 'Выходные Мужа: ✅'
-  ) {
-    inputLabel2.textContent = 'Выходные Мужа:';
-    inputLabel1.textContent = 'Выходные Жены: ✅';
-  }
-});
-inputLabel1.addEventListener('pointerenter', (event) => {
-  if (event.pointerType === 'mouse') {
-    inputLabel1.style.color = '#a6a6a6';
-  }
-});
-inputLabel1.addEventListener('pointerleave', (event) => {
-  if (event.pointerType === 'mouse') {
-    inputLabel1.removeAttribute('style');
-  }
-});
-
-const inputLabel2 = document.querySelector('.input-2-label');
-inputLabel2.addEventListener('click', () => {
-  if (
-    inputLabel2.textContent === 'Выходные Мужа:' &&
-    inputLabel1.textContent === 'Выходные Жены: ✅'
-  ) {
-    inputLabel1.textContent = 'Выходные Жены:';
-    inputLabel2.textContent = 'Выходные Мужа: ✅';
-  }
-});
-inputLabel2.addEventListener('pointerenter', (event) => {
-  if (event.pointerType === 'mouse') {
-    inputLabel2.style.color = '#a6a6a6';
-  }
-});
-inputLabel2.addEventListener('pointerleave', (event) => {
-  if (event.pointerType === 'mouse') {
-    inputLabel2.removeAttribute('style');
   }
 });

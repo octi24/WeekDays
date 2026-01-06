@@ -8,6 +8,23 @@
 
   gap: 1.25rem;
 
+  .input-wrapper {
+    position: relative;
+    height: 95px;
+  }
+
+  .input-btn {
+    font-size: 1.1rem;
+
+    display: block;
+
+    padding: 15px 18px;
+
+    color: #fff;
+    border-radius: 10px;
+    background-color: var(--buttons-bg);
+  }
+
   .input-field {
     font-size: 1.05rem;
 
@@ -20,6 +37,8 @@
     border: 2px solid #333333;
     border-radius: 0.625rem;
     background-color: var(--dark-elements-bg);
+
+    margin-top: 7px;
   }
 
   .input-field::placeholder {
@@ -35,29 +54,24 @@
   .input-label {
     font-size: 1.1rem;
 
-    display: block;
-
-    margin-bottom: 10px;
-
     -webkit-user-select: none; /* Для Safari */
     user-select: none;
+  }
+
+  .clear-btn {
+    position: absolute;
+    top: 52px;
+    right: -10%;
+    font-size: 1.3rem;
+    padding: 0 5px;
+    line-height: 1.3rem;
+    background-color: var(--buttons-bg);
+    color: var(--text-color);
   }
 
   .weekends {
     font-size: 1.1rem;
   }
-}
-
-.input-btn {
-  font-size: 1.1rem;
-
-  display: block;
-
-  padding: 15px 18px;
-
-  color: #fff;
-  border-radius: 10px;
-  background-color: var(--buttons-bg);
 }
 
 /* Toggle box */

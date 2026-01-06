@@ -46,7 +46,15 @@
 /* Отключение hover эффектов на тач-устройствах */
 @media (hover: hover) {
   button:hover {
-    background-color: #9b243a;
+    background-color: var(--buttons-hover);
+  }
+
+  .input-btn:hover {
+    background-color: var(--buttons-hover);
+  }
+
+  .clear-btn:hover {
+    background-color: var(--buttons-hover);
   }
 
   .trash-can:hover {
