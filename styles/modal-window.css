@@ -49,9 +49,6 @@
 
   transition: all 0.2s ease-out;
 }
-.trash-can:hover {
-  transform: scale(1.2);
-}
 .trash-can:active {
   transform: scale(1);
 
@@ -69,10 +66,7 @@
 .save-2 {
   color: #ffe9d5;
 }
-.save-1:hover,
-.save-2:hover {
-  color: #9c9c9c;
-}
+
 .save-1:active,
 .save-2:active {
   transform: scale(0.96);

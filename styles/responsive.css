@@ -30,14 +30,31 @@
   .input-field::placeholder {
     font-size: 1rem;
   }
-}
-.color-legendary {
-  display: flex;
-  gap: 0.3125rem;
-  .color-wrapper {
-    justify-content: space-between;
-    p {
-      flex-basis: auto;
+
+  .color-legendary {
+    display: flex;
+    gap: 0.3125rem;
+    .color-wrapper {
+      justify-content: space-between;
+      p {
+        flex-basis: auto;
+      }
     }
+  }
+}
+
+/* Отключение hover эффектов на тач-устройствах */
+@media (hover: hover) {
+  button:hover {
+    background-color: #9b243a;
+  }
+
+  .trash-can:hover {
+    transform: scale(1.2);
+  }
+
+  .save-1:hover,
+  .save-2:hover {
+    color: #9c9c9c;
   }
 }
