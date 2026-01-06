@@ -251,10 +251,7 @@ function matchWeekends() {
   // commonDates = matchDate(inputValue1, inputValue2);
   commonDates = inputValue1.filter((element) => inputValue2.includes(element)); // Заменяет функцию с 167 строки
 
-  changeText(
-    'Нажмите на соответствующие переключатели для активации!',
-    'Подсветить'
-  );
+  changeText('Нажмите на переключатели выше для активации!', 'Подсветить');
 
   allWeekends.innerText = `Количество общих выходных: ${commonDates.length}`;
 }
